@@ -1,5 +1,13 @@
-from time import sleep
-dict = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
+import time
+
+UNIT_TIME = 0.5
+LED_TIME_DOT = UNIT_TIME*1
+LED_TIME_DASH = UNIT_TIME*3
+LED_TIME_BETWEEN_SYMBOLS = UNIT_TIME*1
+LED_TIME_BETWEEN_LETTERS = UNIT_TIME*3
+LED_TIME_BETWEEN_WORDS = UNIT_TIME*7
+
+letter_to_morse = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
         'F': '..-.', 'G': '--.', 'H': '....',
         'I': '..', 'J': '.---', 'K': '-.-',
         'L': '.-..', 'M': '--', 'N': '-.',
@@ -10,15 +18,38 @@ dict = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
         '1': '.----', '2': '..---', '3': '...--',
         '4': '....-', '5': '.....', '6': '-....',
         '7': '--...', '8': '---..', '9': '----.',
-        '0': '-----', ', ': '--..--', '.': '.-.-.-',
+        '0': '-----', ',': '--..--', '.': '.-.-.-',
         '?': '..--..', '/': '-..-.', '-': '-....-',
         '(': '-.--.', ')': '-.--.-'}
 
-input = input(str("Enter your message!:"))
-output = [dict[letter] for letter in input]
-print(''.join(output))
-led = {'.':'sleep(0.5)'+' '' ', '-':'sleep(1) '+' '' '}
-flash = [led[letter] for letter in output]
-print(flash)
+
+def led_on():
+    print("LED on")
+
+def led_off():
+    print("LED off")
+
+def output_letter(c):
+    morse = letter_to_morse[c]
+    for symbol in morse:
+        led_on()
+        if symbol == '-':
+            time.sleep(LED_TIME_DASH)
+        else:
+            time.sleep(LED_TIME_DOT)
+        led_off()
+        time.sleep(LED_TIME_BETWEEN_SYMBOLS)
+
+def output_string(s):
+    words = s.split(' ')
+    for word in words:
+        for c in word:
+            output_letter(c)
+            time.sleep(LED_TIME_BETWEEN_LETTERS)
+        time.sleep(LED_TIME_BETWEEN_WORDS)
 
 
+
+string_input = input("Enter your message: ").upper()
+print("Starting output")
+output_string(string_input)
