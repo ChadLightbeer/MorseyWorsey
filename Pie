@@ -1,4 +1,7 @@
 import time
+import RPi.GPIO as GPIO
+
+LED_PIN = 17
 
 UNIT_TIME = 0.5
 LED_TIME_DOT = UNIT_TIME*1
@@ -24,9 +27,11 @@ letter_to_morse = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
 
 
 def led_on():
+    GPIO.output(LED_PIN, GPIO.HIGH)
     print("LED on")
 
 def led_off():
+    GPIO.output(LED_PIN, GPIO.LOW)
     print("LED off")
 
 def output_letter(c):
@@ -49,7 +54,11 @@ def output_string(s):
         time.sleep(LED_TIME_BETWEEN_WORDS)
 
 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(LED_PIN, GPIO.OUT)
 
 string_input = input("Enter your message: ").upper()
 print("Starting output")
 output_string(string_input)
+
+GPIO.cleanup()
