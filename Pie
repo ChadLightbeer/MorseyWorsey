@@ -1,3 +1,4 @@
+from time import sleep
 dict = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
         'F': '..-.', 'G': '--.', 'H': '....',
         'I': '..', 'J': '.---', 'K': '-.-',
@@ -14,6 +15,10 @@ dict = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
         '(': '-.--.', ')': '-.--.-'}
 
 input = input(str("Enter your message!:"))
-for letter in input:
-        output = [dict[letter]]
-        print(''.join(output))
+output = [dict[letter] for letter in input]
+print(''.join(output))
+led = {'.':'sleep(0.5)'+' '' ', '-':'sleep(1) '+' '' '}
+flash = [led[letter] for letter in output]
+print(flash)
+
+
