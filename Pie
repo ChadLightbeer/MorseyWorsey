@@ -1,9 +1,11 @@
-import time
 import RPi.GPIO as GPIO
+import time
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.OUT)
 
 LED_PIN = 17
 
-UNIT_TIME = 0.5
+UNIT_TIME = 0.2
 LED_TIME_DOT = UNIT_TIME*1
 LED_TIME_DASH = UNIT_TIME*3
 LED_TIME_BETWEEN_SYMBOLS = UNIT_TIME*1
@@ -54,7 +56,7 @@ def output_string(s):
         time.sleep(LED_TIME_BETWEEN_WORDS)
 
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(LED_PIN, GPIO.OUT)
 
 string_input = input("Enter your message: ").upper()
